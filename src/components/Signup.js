@@ -10,15 +10,25 @@ export default function Signup() {
     const passwordConfirmRef = useRef()
     const { signup } = useAuth()
     const { error, setError } = useState('')
+    const { loading, setLoading } = useState(false)
 
-    function handleSubmit(e){
+    async function handleSubmit(e){
         e.preventDefaul()
 
         if(passwordRef.current.value === passwordConfirmRef.current.value){
-            return
+            return setError('Password no match')
         }
 
-        signup(emailRef.current.value, passwordRef.current.value);
+        
+        try{
+            setError('')
+            setLoading(true)
+            await signup(emailRef.current.value, passwordRef.current.value)
+        }catch{
+            setError('failed to create')
+        }
+        setLoading(false)
+        
     }
 
     return (
