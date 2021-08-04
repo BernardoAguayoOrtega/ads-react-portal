@@ -8,15 +8,15 @@ export default function  Signup() {
     const emailRef = useRef();
     const passwordRef = useRef();
     const passwordConfirmRef = useRef();
-    const { signup } = useAuth();
-    const { error, setError } = useState("");
-    const { loading, setLoading } = useState(false);
+    const { signup, currentUser } = useAuth();
+    const [ error, setError ] = useState("");
+    const [ loading, setLoading ] = useState(false);
 
     async function handleSubmit(e) {
         e.preventDefault();
     
         if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-            return setError("error");
+            return setError("La contraseña no coincide");
         }
     
         try {
@@ -24,7 +24,7 @@ export default function  Signup() {
           setLoading(true);
           await signup(emailRef.current.value, passwordRef.current.value);  
         } catch {
-          setError("Failed to create an account");
+          setError("Oops! No se puede crear la cuenta");
         }
     
         setLoading(false);
@@ -35,6 +35,7 @@ export default function  Signup() {
         <Card>
             <Card.Body>
                 <h2 className="text-center mb-4">Inicio de sesión</h2>
+                { currentUser && currentUser.email }
                 {error && <Alert variant="danger">{error}</Alert>}
                 <Form onSubmit={handleSubmit}>
                     <Form.Group id="email">
