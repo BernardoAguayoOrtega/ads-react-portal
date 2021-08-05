@@ -49,11 +49,15 @@ export default function  Login() {
                         Iniciar
                     </Button>
                 </Form>
+                
             </Card.Body>
         </Card>
             <div className="w-100 text-center mt-2">
-                Need an account? <Link to="/signup">Sign up</Link> 
+                ¿Necesitas una cuenta? <Link to="/signup">Crear cuenta</Link> 
             </div>
+            <footer className="mt-5 text-center">
+                <h2>Alternativa 19 del Sur</h2>
+            </footer>
         </>
     )
 }
